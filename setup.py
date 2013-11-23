@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import sys
+
 from setuptools import setup, find_packages
 
 
@@ -13,7 +15,10 @@ def _install_requires():
 
 
 def _test_requires():
-    return _load_requires_from_file('test-requirements.txt')
+    test_requires = _load_requires_from_file('test-requirements.txt')
+    if sys.version_info >= (3, 3, 0):
+        test_requires.remove('mock')
+    return test_requires
 
 
 def _packages():
@@ -23,8 +28,16 @@ def _packages():
             '*.tests.*',
             'tests.*',
             'tests'
-        ]
+        ],
     )
+
+
+def _package_data():
+    return {
+        'pydevinit': [
+            'templates/*'
+        ],
+    }
 
 if __name__ == '__main__':
     setup(
@@ -47,8 +60,10 @@ if __name__ == '__main__':
             'Operating System :: POSIX'
         ],
         packages=_packages(),
+        package_data=_package_data(),
         install_requires=_install_requires(),
         tests_require=_test_requires(),
+        include_package_data=True,
         zip_safe=False,
         entry_points="""
         [console_scripts]
