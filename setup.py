@@ -12,7 +12,7 @@ def _install_requires():
     return _load_requires_from_file('requirements.txt')
 
 
-def _tests_require():
+def _test_requires():
     return _load_requires_from_file('test-requirements.txt')
 
 
@@ -48,8 +48,7 @@ if __name__ == '__main__':
         ],
         packages=_packages(),
         install_requires=_install_requires(),
-        tests_require=_tests_require(),
-        test_suite='nose.collector',
+        tests_require=_test_requires(),
         entry_points="""
         [console_scripts]
         pydevinit = pydevinit:main
