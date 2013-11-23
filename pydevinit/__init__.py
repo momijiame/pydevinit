@@ -3,19 +3,19 @@
 
 import argparse
 
-from jinja2.environment import Environment
-from jinja2.loaders import PackageLoader
+from jinja2 import environment
+from jinja2 import loaders
 
 
 class MetadataFileGenerator(object):
 
     def __init__(self, package_name='pydevinit', template_dir='templates'):
-        loader = PackageLoader(package_name, template_dir)
-        self.environ = Environment(loader=loader)
+        loader = loaders.PackageLoader(package_name, template_dir)
+        self.environ = environment.Environment(loader=loader)
 
-    def generate(self, template_name, args={}, file_name=None):
+    def generate(self, template_name, args=None, file_name=None):
         template = self.environ.get_template(template_name)
-        template_stream = template.stream(**args)
+        template_stream = template.stream(**(args or {}))
         template_stream.dump(file_name or template_name)
 
 
