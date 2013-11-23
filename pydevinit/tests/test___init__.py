@@ -2,7 +2,11 @@
 
 import sys
 
-from unittest.mock import patch, call, Mock
+try:
+    from mock import patch, call, Mock
+except ImportError:
+    # Python 3.3+
+    from unittest.mock import patch, call, Mock
 
 import nose
 from nose.tools.nontrivial import raises

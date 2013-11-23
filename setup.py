@@ -11,7 +11,10 @@ def _load_requires_from_file(filepath):
 
 
 def _install_requires():
-    return _load_requires_from_file('requirements.txt')
+    requires = _load_requires_from_file('requirements.txt')
+    if sys.version_info >= (2, 7, 0):
+        requires.remove('argparse')
+    return requires
 
 
 def _test_requires():
