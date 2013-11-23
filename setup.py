@@ -45,7 +45,7 @@ def _package_data():
 if __name__ == '__main__':
     setup(
         name='pydevinit',
-        version='0.0.1',
+        version='0.0.2',
         description='Eclipse PyDev Plugin Project Initialize Script',
         author='momijiame',
         author_email='amedama.ginmokusei@gmail.com',
