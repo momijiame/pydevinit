@@ -49,6 +49,7 @@ if __name__ == '__main__':
         packages=_packages(),
         install_requires=_install_requires(),
         tests_require=_test_requires(),
+        zip_safe=False,
         entry_points="""
         [console_scripts]
         pydevinit = pydevinit:main
