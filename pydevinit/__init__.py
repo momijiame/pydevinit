@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
+
 import argparse
 
 from jinja2 import environment
@@ -31,7 +33,7 @@ def _parse_args():
     arg_parser.add_argument(
         '-n', '--project-name',
         type=str,
-        required=True,
+        default=None,
         help=option_n_help,
     )
     arg_parser.add_argument(
@@ -65,15 +67,19 @@ def _parse_args():
 def _generate(args):
     generator = MetadataFileGenerator()
 
+    current_working_path = os.getcwd()
+    current_working_dir = os.path.split(current_working_path)[1]
+    project_name = args.project_name or current_working_dir
+
     # .project
     gen_args = {
-        'project_name': args.project_name,
+        'project_name': project_name,
     }
     generator.generate('project', gen_args, '.project')
 
     # .pydevproject
     gen_args = {
-        'source_path': args.source_path or args.project_name,
+        'source_path': args.source_path or project_name,
         'python_type': args.python_type,
         'python_version': args.python_version,
         'python_interpreter': args.python_interpreter,
