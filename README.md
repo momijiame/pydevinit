@@ -34,7 +34,7 @@ $ pip install pydevinit
 利用可能な全てのオプションは -h で確認できます。
 
 ```
-$ pydevinit --project-name <project_name> --source-path <source_dir>
+$ pydevinit
 ```
 
 スクリプトを実行したディレクトリに PyDev プラグイン用のメタデータを記録した隠しファイル (.project, .pydevproject) が作成されます。
