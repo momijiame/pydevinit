@@ -14,12 +14,14 @@ class MetadataFileGenerator(object):
         self.environ = Environment(loader=loader)
 
     def generate(self, template_name, args={}, file_name=None):
-        pydevproj_template = self.environ.get_template(template_name)
-        pydevproj_template.stream(**args).dump(file_name or template_name)
+        template = self.environ.get_template(template_name)
+        template_stream = template.stream(**args)
+        template_stream.dump(file_name or template_name)
 
 
-def main():
+def _parse_args():
     description = 'Eclipse PyDev Plugin Project Initialize Script'
+    option_n_help = 'Set project name'
     option_s_help = 'Set project source path'
     option_t_help = 'Set python type (default: python)'
     option_v_help = 'Set python version (default: 2.7)'
@@ -27,9 +29,15 @@ def main():
 
     arg_parser = argparse.ArgumentParser(description=description)
     arg_parser.add_argument(
-        '-s', '--source-path',
+        '-n', '--project-name',
         type=str,
         required=True,
+        help=option_n_help,
+    )
+    arg_parser.add_argument(
+        '-s', '--source-path',
+        type=str,
+        default=None,
         help=option_s_help,
     )
     arg_parser.add_argument(
@@ -51,21 +59,31 @@ def main():
         help=option_i_help,
     )
 
-    args = arg_parser.parse_args()
+    return arg_parser.parse_args()
 
+
+def _generate(args):
     generator = MetadataFileGenerator()
+
+    # .project
+    gen_args = {
+        'project_name': args.project_name,
+    }
+    generator.generate('project', gen_args, '.project')
 
     # .pydevproject
     gen_args = {
-        'source_path': args.source_path,
+        'source_path': args.source_path or args.project_name,
         'python_type': args.python_type,
         'python_version': args.python_version,
         'python_interpreter': args.python_interpreter,
     }
     generator.generate('pydevproject', gen_args, '.pydevproject')
 
-    # .project
-    generator.generate('project', gen_args, '.project')
+
+def main():
+    args = _parse_args()
+    _generate(args)
 
 if __name__ == '__main__':
     main()
