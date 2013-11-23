@@ -5,3 +5,4 @@ python:
   - "3.3"
 install: "pip install -r requirements.txt -r test-requirements.txt"
 script: nosetests
+
