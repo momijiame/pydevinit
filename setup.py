@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 
 
 def _load_requires_from_file(filepath):
-    return [pkg_name.rstrip('\r\n') for pkg_name in open(filepath).readlines()]
+    return [pkg_name.rstrip('\n') for pkg_name in open(filepath).readlines()]
 
 
 def _install_requires():
