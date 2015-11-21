@@ -58,7 +58,7 @@ if __name__ == '__main__':
             'Programming Language :: Python :: 3.3',
             'Programming Language :: Python :: 3.4',
             'Programming Language :: Python :: 3.5',
-            'Development Status :: 3 - Alpha',
+            'Development Status :: 4 - Beta',
             'License :: OSI Approved :: Apache Software License',
             'Intended Audience :: Developers',
             'Natural Language :: Japanese',
